@@ -1,9 +1,11 @@
-from puzzleword import PuzzleWord
+from game.puzzleword import PuzzleWord
+
 
 class WordSlicer:
     """Class will take a word and slice it into
     letter
     """
+
     def __init__(self) -> None:
         self._word = PuzzleWord().randomWord
 
