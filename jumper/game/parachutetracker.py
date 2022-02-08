@@ -4,17 +4,92 @@ class ParachuteTracker:
     """
 
     def __init__(self) -> None:
-        pass
+        self._parachute_index = 0
 
 
     def parachute(self) -> list:
         """This method will return a list
         that will show the state of parachute
         """
-        pass
+        self.parachute = [
+            """
+            ________
+              ___
+             /___\\
+             \   /
+              \ /
+               0
+              /|\\
+              / \\
 
-    def parachuteChooser(self) -> None:
+            ^^^^^^^
+            """,
+            """
+            ________
+              
+             /___\\
+             \   /
+              \ /
+               0
+              /|\\
+              / \\
+
+            ^^^^^^^
+            """,
+            """
+            ________
+              
+             
+             \   /
+              \ /
+               0
+              /|\\
+              / \\
+
+            ^^^^^^^
+            """,
+            """
+            ________
+              
+             
+             
+              \ /
+               0
+              /|\\
+              / \\
+
+            ^^^^^^^
+            """,
+            """
+            ________
+              
+             
+             
+             
+               0
+              /|\\
+              / \\
+
+            ^^^^^^^
+            """,
+            """
+            ________
+              
+             
+             
+             
+               X
+              /|\\
+              / \\
+
+            ^^^^^^^
+            """            
+        ]
+        return self.parachute[self._parachute_index]
+
+    def parachuteChooser(self, index=0) -> None:
         """This Method will choose from a
         list the state of the parachute
         """
-        pass
+        self._parachute_index = index
+        print(self.parachute())
