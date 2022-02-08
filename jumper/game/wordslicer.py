@@ -13,4 +13,5 @@ class WordSlicer:
         """This Method will take a word and slice it
         into a list of letters
         """
-        pass
+        self.sliced_word = list(self._word)
+        return self.sliced_word
