@@ -18,25 +18,16 @@ class PuzzleWord:
         Returns:
             my_random_word: string
         """
+        self.load_list()
         my_random_word = random.choice(self._wordlist)
-        return my_random_word
+        return my_random_word.upper()
 
     def load_list(self) -> None:
         """This Method will fill the wordlist
         from a txt file
         """
         with open("words.txt", "rt") as text_file:
-            read_data = text_file.read()
+            read_data = text_file.readlines()
             for line in read_data:
                 clean_line = line.strip()
-                print(clean_line)
-                # self._wordlist.append(clean_line)
-
-def main():
-    test_word = PuzzleWord()
-    test_word.load_list()
-    my_word = test_word.randomWord()
-    print(my_word)
-
-if __name__ == "__main__":
-    main()
+                self._wordlist.append(clean_line)
