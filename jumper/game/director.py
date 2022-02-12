@@ -34,11 +34,18 @@ class Director:
         self._is_playing = True
         self._tries = 6
 
+    # Logic of the game
     def _wordTracker(self):
+        """This Method will evaluate the word and the letter
+        that the user what to guess from the jumper
+        Also it update the jumper graph
+        """
         pass
 
+
+    # Method to remove
     def _addLetter(self):
         pass
-
+    # Method to remove
     def _slicer(self):
         pass
