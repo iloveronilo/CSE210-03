@@ -7,7 +7,7 @@ class ParachuteTracker:
         self._parachute_index = 0
 
 
-    def parachute(self) -> list:
+    def PrintParachute(self) -> list:
         """This method will return a list
         that will show the state of parachute
         """
@@ -92,4 +92,4 @@ class ParachuteTracker:
         list the state of the parachute
         """
         self._parachute_index = index
-        print(self.parachute())
+        print(self.PrintParachute())

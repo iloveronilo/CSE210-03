@@ -12,6 +12,7 @@ class Director:
         self._parachuteTracker = ParachuteTracker()
         self._game_title = GameTitle()
         self._guessed = False
+        self._user_guess = ""
         self._tries = 0
 
     def startGame(self):
@@ -31,8 +32,9 @@ class Director:
         self.guess_word = self._sliced_word.slicer()
         self.covered_word = "_ " * len(self.guess_word)
         print(f"Covered word: {self.covered_word} - Uncovered word: {''.join(self.guess_word)}")
+        self._parachuteTracker.parachuteChooser(self._tries)
         self._is_playing = True
-        self._tries = 6
+        # self._tries = 6
 
     # Logic of the game
     def _wordTracker(self):
@@ -40,6 +42,12 @@ class Director:
         that the user what to guess from the jumper
         Also it update the jumper graph
         """
+        self._user_guess = input("Please guess a letter or the word: ").upper()
+        if len(self._user_guess) == 1 and self._user_guess.isalpha():
+            if self._user_guess not in self.guess_word:
+                print(f"Sorry, {self._user_guess} is not in the word")
+                self._tries += 1
+                print(self._tries)
         pass
 
 
