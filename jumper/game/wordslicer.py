@@ -7,7 +7,7 @@ class WordSlicer:
     """
 
     def __init__(self) -> None:
-        self._word = PuzzleWord().randomWord
+        self._word = PuzzleWord().randomWord()
 
     def slicer(self) -> list:
         """This Method will take a word and slice it
@@ -15,3 +15,11 @@ class WordSlicer:
         """
         self.sliced_word = list(self._word)
         return self.sliced_word
+
+# def main():
+#     my_word = WordSlicer()
+#     sliced_word = my_word.slicer()
+#     print(sliced_word)
+
+# if __name__ == "__main__":
+#     main()

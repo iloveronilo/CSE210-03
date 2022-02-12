@@ -7,9 +7,9 @@ class Director:
     """
 
     def __init__(self) -> None:
+        self._sliced_word = WordSlicer()
         self._parachuteTracker = ParachuteTracker()
-        self._is_playing = True
-        self._wordSlicer = WordSlicer()
+        self._guessed = True
 
     def startGame(self):
         """Starts the game by running the main game loop"""
@@ -20,7 +20,13 @@ class Director:
             self._slicer()
 
     def _display(self):
-        pass
+        """Display in the console the flow of the
+        game for inputs and outputs.
+        """
+        self.guess_word = self._sliced_word.slicer()
+        self.covered_word = "_ " * len(self.guess_word)
+        print(f"Covered word: {self.covered_word} - Uncovered word: {''.join(self.guess_word)}")
+        self._is_playing = False
 
     def _wordTracker(self):
         pass
