@@ -15,11 +15,3 @@ class WordSlicer:
         """
         self.sliced_word = list(self._word)
         return self.sliced_word
-
-# def main():
-#     my_word = WordSlicer()
-#     sliced_word = my_word.slicer()
-#     print(sliced_word)
-
-# if __name__ == "__main__":
-#     main()
