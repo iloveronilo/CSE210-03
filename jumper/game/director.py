@@ -16,6 +16,8 @@ class Director:
         self._indices = []
         self._index = 0
         self._tries = 0
+        self._guess_word = self._sliced_word.slicer()
+        self._covered_word = "_" * len(self._guess_word)
 
     def startGame(self):
         """Starts the game by running the main game loop"""
@@ -39,37 +41,35 @@ class Director:
         Also it update the jumper graph
         """
         self._parachuteTracker.parachuteChooser(self._tries)
+        self._uncovered_word = list(self._covered_word)
         self._is_playing = True
-        self.guess_word = self._sliced_word.slicer()
-        self.covered_word = "_" * len(self.guess_word)
-        self.uncovered_word = list(self.covered_word)
-        print(f"Covered word: {self.covered_word} - Uncovered word: {''.join(self.guess_word)}")
+        print(f"Uncovered word: {''.join(self._guess_word)}")
         self._user_guess = input("\nPlease guess a letter or the word: ").upper()
         if len(self._user_guess) == 1 and self._user_guess.isalpha():
-            if self._user_guess not in self.guess_word:
+            if self._user_guess not in self._guess_word:
                 print(f"Sorry, {self._user_guess} is not in the word")
                 self._tries += 1
                 print(self._tries)
             else:
                 print(f"Awesome, {self._user_guess} is in the word")
-                for letter in self.guess_word:
+                for letter in self._guess_word:
                     if self._user_guess == letter:
                         self._indices.append(self._index)
                         self._index += 1
                     else:
                         self._index += 1
-                for i in range(len(self.covered_word)):
+                for i in range(len(self._covered_word)):
                     if i in self._indices:
-                        self.uncovered_word[i] = self._user_guess
-                print(f"{''.join(self.uncovered_word)}")
-        pass
+                        self._uncovered_word[i] = self._user_guess
+                self._covered_word = "".join(self._uncovered_word)
+                self._indices = []
 
 
     # Method to remove
     def _gameOver(self):
-        if self._tries >= 5:
+        if self._tries == 6:
             self._guessed = True
-            self._display()
+            # self._display()
             print("""
             
              ____    _    __  __ _____    _____     _______ ____  
