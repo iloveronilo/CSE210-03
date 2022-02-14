@@ -13,7 +13,7 @@ class Director:
         self._game_title = GameTitle()
         self._guessed = False
         self._user_guess = ""
-        self._indices = []
+        self._user_guesses = []
         self._index = 0
         self._tries = 0
         self._guess_word = self._sliced_word.slicer()
@@ -40,29 +40,29 @@ class Director:
         that the user what to guess from the jumper
         Also it update the jumper graph
         """
+        print(f"\nUncovered word: {''.join(self._guess_word)}\n\n")
         self._parachuteTracker.parachuteChooser(self._tries)
-        self._uncovered_word = list(self._covered_word)
-        self._is_playing = True
-        print(f"Uncovered word: {''.join(self._guess_word)}")
-        self._user_guess = input("\nPlease guess a letter or the word: ").upper()
-        if len(self._user_guess) == 1 and self._user_guess.isalpha():
-            if self._user_guess not in self._guess_word:
-                print(f"Sorry, {self._user_guess} is not in the word")
-                self._tries += 1
-                print(self._tries)
+        # Word exchange logic
+        for letter in self._guess_word:
+            if letter in self._user_guesses:
+                print(letter, end=" ")
             else:
-                print(f"Awesome, {self._user_guess} is in the word")
-                for letter in self._guess_word:
-                    if self._user_guess == letter:
-                        self._indices.append(self._index)
-                        self._index += 1
-                    else:
-                        self._index += 1
-                for i in range(len(self._covered_word)):
-                    if i in self._indices:
-                        self._uncovered_word[i] = self._user_guess
-                self._covered_word = "".join(self._uncovered_word)
-                self._indices = []
+                print("_", end=" ")
+
+        self._user_guess = input("\nPlease guess a letter or the word: ").upper()
+        self._user_guesses.append(self._user_guess.upper())
+
+        if self._user_guess.upper() not in self._guess_word:
+            self._tries += 1
+                    
+        self._is_playing = True
+        
+        # if len(self._user_guess) == 1 and self._user_guess.isalpha():
+        #     if self._user_guess not in self._guess_word:
+        #         print(f"\nSorry, {self._user_guess} is not in the word")
+        #         self._tries += 1
+        #     else:
+        #         print(f"\nAwesome, {self._user_guess} is in the word")
 
 
     # Method to remove
