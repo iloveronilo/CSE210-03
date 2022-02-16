@@ -15,13 +15,13 @@ class Director:
         self._user_guess = ""
         self._user_guesses = []
         self._index = 0
-        self._tries = 0
+        self._tries = 5
         self._guess_word = self._sliced_word.slicer()
         self._covered_word = "_" * len(self._guess_word)
 
     def startGame(self):
         """Starts the game by running the main game loop"""
-        while not self._guessed and self._tries < 6:
+        while not self._guessed:
             self._display()
             self._wordTracker()
             self._gameOver()
@@ -53,9 +53,14 @@ class Director:
         self._user_guesses.append(self._user_guess.upper())
 
         if self._user_guess.upper() not in self._guess_word:
-            self._tries += 1
+            self._tries -= 1
                     
-        self._is_playing = True
+        # self._is_playing = True
+
+        for letter in self._guess_word:
+            if letter not in self._user_guesses:
+                self._guessed = False
+                # self._tries = 7
         
         # if len(self._user_guess) == 1 and self._user_guess.isalpha():
         #     if self._user_guess not in self._guess_word:
@@ -67,7 +72,7 @@ class Director:
 
     # Method to remove
     def _gameOver(self):
-        if self._tries == 6:
+        if self._tries == 0:
             self._guessed = True
             # self._display()
             print("""
