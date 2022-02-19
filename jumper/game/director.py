@@ -21,10 +21,7 @@ class Director:
 
     def startGame(self):
         """Starts the game by running the main game loop"""
-        while not self._guessed:
-            self._display()
-            self._wordTracker()
-            self._gameOver()
+        self._wordTracker()
 
     def _display(self):
         """Display in the console the flow of the
@@ -32,7 +29,6 @@ class Director:
         """
         self._game_title.clearConsole()
         self._game_title.PrintGameTitle("Jumper")
-        # self._tries = 6
 
     # Logic of the game
     def _wordTracker(self):
@@ -40,42 +36,43 @@ class Director:
         that the user what to guess from the jumper
         Also it update the jumper graph
         """
-        print(f"\nUncovered word: {''.join(self._guess_word)}\n\n")
-        self._parachuteTracker.parachuteChooser(self._tries)
-        # Word exchange logic
-        for letter in self._guess_word:
-            if letter in self._user_guesses:
-                print(letter, end=" ")
-            else:
-                print("_", end=" ")
+        while not self._guessed:
+            self._display()
+            # print(f"\nUncovered word: {''.join(self._guess_word)}\n\n")
+            self._parachuteTracker.parachuteChooser(self._tries)
+            # Word exchange logic
+            for letter in self._guess_word:
+                if letter in self._user_guesses:
+                    print(letter, end=" ")
+                else:
+                    print("_", end=" ")
 
-        self._user_guess = input("\nPlease guess a letter or the word: ").upper()
-        self._user_guesses.append(self._user_guess.upper())
+            self._user_guess = input("\n\n\nPlease guess a letter: ").upper()
+            self._user_guesses.append(self._user_guess.upper())
 
-        if self._user_guess.upper() not in self._guess_word:
-            self._tries -= 1
-                    
-        # self._is_playing = True
+            if self._user_guess.upper() not in self._guess_word:
+                self._tries -= 1
+                if self._tries == 0:
+                    break
 
-        for letter in self._guess_word:
-            if letter not in self._user_guesses:
-                self._guessed = False
-                # self._tries = 7
+            self._guessed = True
+                        
+            for letter in self._guess_word:
+                if letter not in self._user_guesses:
+                    self._guessed = False
         
-        # if len(self._user_guess) == 1 and self._user_guess.isalpha():
-        #     if self._user_guess not in self._guess_word:
-        #         print(f"\nSorry, {self._user_guess} is not in the word")
-        #         self._tries += 1
-        #     else:
-        #         print(f"\nAwesome, {self._user_guess} is in the word")
+        if self._guessed:
+            self._gameWin()
+        else:
+            self._gameOver()
 
 
     # Method to remove
     def _gameOver(self):
         if self._tries == 0:
             self._guessed = True
-            # self._display()
-            print("""
+            self._display()
+            print(f"""
             
              ____    _    __  __ _____    _____     _______ ____  
             / ___|  / \  |  \/  | ____|  / _ \ \   / / ____|  _ \ 
@@ -84,4 +81,16 @@ class Director:
             \____/_/   \_\_|  |_|_____|  \___/  \_/  |_____|_| \_\\
                                                                 
 
-            """)
+            \nThe word was: {''.join(self._guess_word)}\n\n""")
+
+    def _gameWin(self):
+        self._display()
+        print(f"""
+        ____    ____  ______    __    __     ____    __    ____  __  .__   __.  __  
+        \   \  /   / /  __  \  |  |  |  |    \   \  /  \  /   / |  | |  \ |  | |  | 
+         \   \/   / |  |  |  | |  |  |  |     \   \/    \/   /  |  | |   \|  | |  | 
+          \_    _/  |  |  |  | |  |  |  |      \            /   |  | |  . `  | |  | 
+            |  |    |  `--'  | |  `--'  |       \    /\    /    |  | |  |\   | |__| 
+            |__|     \______/   \______/         \__/  \__/     |__| |__| \__| (__) 
+                                                                            
+        """)
