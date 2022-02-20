@@ -14,10 +14,8 @@ class Director:
         self._guessed = False
         self._user_guess = ""
         self._user_guesses = []
-        self._index = 0
         self._tries = 5
         self._guess_word = self._sliced_word.slicer()
-        self._covered_word = "_" * len(self._guess_word)
 
     def startGame(self):
         """Starts the game by running the main game loop"""
